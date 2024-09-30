@@ -8,11 +8,14 @@
 */
 
 import router from "@adonisjs/core/services/router";
+const PostsController = () => import("#controllers/posts_controller");
 
 router
   .group(() => {
-    router.get("posts", () => ({
-      posts: "oui",
-    }));
+    router
+      .group(() => {
+        router.get("/", [PostsController, "get"]);
+      })
+      .prefix("/posts");
   })
   .prefix("/api");
